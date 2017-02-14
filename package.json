@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/adriandgr/github-avatar-downloader/issues"
   },
-  "homepage": "https://github.com/adriandgr/github-avatar-downloader#readme"
+  "homepage": "https://github.com/adriandgr/github-avatar-downloader#readme",
+  "dependencies": {
+    "request": "^2.79.0"
+  }
 }
