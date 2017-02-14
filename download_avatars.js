@@ -2,6 +2,8 @@ const fs = require('fs');
 const request = require('request');
 const getRepoContributors = require('./getRepoContributors');
 let GITHUB_TOKEN;
+let owner = process.argv[2];
+let repo = process.argv[3];
 
 
 function downloadImageByURL(url, filePath) {
@@ -14,12 +16,15 @@ function downloadImageByURL(url, filePath) {
 function getApiToken(path) {
   fs.readFile(path, function (err, data) {
     GITHUB_TOKEN = data.toString();
-
-    getRepoContributors("jquery", "jquery", GITHUB_TOKEN, (err, result) => {
-      for (entry of result) {
-        downloadImageByURL(entry.avatar_url, entry.login);
-      }
-    });
+    if (owner && repo) {
+      getRepoContributors(owner, repo, GITHUB_TOKEN, (err, result) => {
+        for (entry of result) {
+          downloadImageByURL(entry.avatar_url, entry.login);
+        }
+      });
+    } else {
+      console.log('Usage: \n $ node download_avatars.js <owner> <repo>');
+    }
   });
 }
 
